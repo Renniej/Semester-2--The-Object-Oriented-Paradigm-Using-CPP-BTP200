@@ -27,9 +27,7 @@ namespace sict{
 
 		Fraction();
 
-		Fraction(int numer, int denom) {
-
-		}
+		Fraction(int numer, int denom);
 
 		int max() const;
 		int min() const;

@@ -20,6 +20,7 @@ namespace sict {
 			//Set values from parameter to object variables
 			m_numer = numer;
 			m_denom = denom;
+			reduce();
 		} 
 		else { //else set object to empty sate
 			m_numer = 0;
@@ -149,7 +150,7 @@ namespace sict {
 
 		
 		New.m_numer = (m_numer * rhs.m_denom) + (m_denom * rhs.m_numer);
-		New.m_denom = m_denom * m_numer;
+		New.m_denom = m_denom * rhs.m_denom;
 
 		New.reduce();
 
