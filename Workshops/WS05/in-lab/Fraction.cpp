@@ -117,16 +117,16 @@ namespace sict {
 		if (!isEmpty()) {
 
 			if (m_denom == 1) {
-				cout << m_numer << endl;
+				cout << m_numer;
 			}
 			else {
 
-				cout << m_numer << "/" << m_denom << endl;
+				cout << m_numer << "/" << m_denom;
 			}
 
 		}
 		else {
-			cout << "no fraction stored" << endl;
+			cout << "no fraction stored";
 		}
 
 
