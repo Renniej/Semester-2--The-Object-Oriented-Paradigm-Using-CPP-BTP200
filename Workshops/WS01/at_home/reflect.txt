@@ -1,0 +1,13 @@
+1. namespace is a method used to provide a scope to varibles, functions, etc. It is usually used for organization purposes especially when working in groups.
+A common problem it stops is name issues when mutiple headers have idenitifers with identical names. 
+
+
+2. A header file contains declariations of identifiers that you want to share across a multiude of seperate code files. 
+
+3. Header files are already taken care of in the preprocessing stage of compliation. trying to compile them directly will most likely lead to error
+
+4. Because what's the point of seperating these into modules if you're just going to include the cpp. During preprocessing it will just be like
+you coded it all in one big file and that can lead to very big compile times if you're working on a big program.
+
+5. I never used compliation safe-guards in the past because I assumed the compiler handled this automatically.  I learnt that this assumption was very very wrong. 
+  I also learnt that my big project I worked on in grade 12 could of benefitted if I thought a bit more about modularity.

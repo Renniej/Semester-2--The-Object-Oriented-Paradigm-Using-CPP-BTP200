@@ -1,0 +1,16 @@
+1. When you dynamicly allocate memory you set a specific chunk of memory(real estate) for all your data to be written too.  Any unreserved memory is open to the
+system/program to do whatever with, including the space beside the chunk of memory you reserved.  So if we want to increase memory size we need to call an entirely
+new chunk because the current chunk will cause errors with any data inputted past its limits. 
+
+2. the "delete" function unreserves the memory in which the class/struct is held. Since the m_KingdomName string is held in the class/structure it would be in that same 
+space of reserved memory and gets unreserved with the rest of the Kingdom data members once the delete function is called.
+
+
+3.  Depending on the parameters used the compiler can decide which function it wants to use.
+
+4.  
+
+   - using a temp pointer to reserve a chunk of memory for a larger array
+   - reminded me that sending by array is treated as a pointer
+   -  delete vs delete[]
+   -  practice on solving "errors" due to program not being written the way i would. (Great for enviroments that require teamwork)

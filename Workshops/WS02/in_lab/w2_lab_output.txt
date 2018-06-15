@@ -1,0 +1,30 @@
+Script started on Fri 18 May 2018 09:35:05 AM EDT
+cornel.barna@********** › ws
+[38;5;9mBegin Testing the Program!
+--------------------------[0m
+
+==========
+Input data
+==========
+Enter the number of Kingdoms: 2
+Kingdom #1: 
+Enter the name of the Kingdom: The_Vale
+Enter the number of people living in The_Vale: 234567
+Kingdom #2: 
+Enter the name of the Kingdom: The_Reach
+Enter the number of people living in The_Reach: 567890
+==========
+
+------------------------------
+The 1st kingdom entered is
+------------------------------
+The_Vale, population 234567
+------------------------------
+
+
+[38;5;9m------------------------
+End Testing the Program![0m
+cornel.barna@********** › exit
+exit
+
+Script done on Fri 18 May 2018 09:36:35 AM EDT

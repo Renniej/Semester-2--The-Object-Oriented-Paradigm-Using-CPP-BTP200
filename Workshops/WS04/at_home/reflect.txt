@@ -1,0 +1,20 @@
+1) a safe empty state is a state in which an object's properties are intialized & defined to a value that
+is perceived as empty.  Yes you can define another state as the safe empty state.
+
+
+2) By using constructors I was able to properly intialize and define the variables in my classes
+without having to rewrite the same chunk of code.
+
+
+3) Member functions are stored in a seperate part of memory that can still access all of the approperiate 
+variables and methods in a specified class.  By sending by reference we give the function the address of the other
+class allowing it to access its private values with its elevated permissions. 
+
+
+4)   char[max] = ['/0']
+
+5) How to manipulate classes with both member functions & constructors. 
+
+
+Quiz X Reflection:
+
