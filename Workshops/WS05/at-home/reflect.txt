@@ -1,0 +1,39 @@
+1. The + operator is used when creating a new object. Due to this we do not want to modify already existing
+objects when calling it.  If we were to send by reference we would either be modifying an existing object
+or sending an address that would eventually go out of scope once the function is done running
+
+
+2.  (a+b), (b+d)
+
+
+3. When an Fraction object is in empty state I set both the denominator and numerator to 0 to avoid 
+unwanted behaviour + even if there were a lack of if statements for some operators it'd still return
+an empty object.
+
+
+In the += overloaded operator i took advantage of the overloaded + operator in order to avoid duplicating code.
+
+
+
+4.  - I need to do more reasearch on operators and how they behave with both references, pointers and values.
+
+    - I refined my knowledge on format needed to created an overloaded operator function.
+
+    - I learned how to make my code a bit more innovative with overloaded operator functions.
+
+
+
+
+Quiz 5 Reflection:
+
+
+1. Lock copy constructors in private so it can't be accessed. 
+
+2. Shallow Copy does not allocate dynamic variables to new memory blocks but instead just points back to them
+	so if the variables/pointer is deleted from the orginal copy then the shallow copied object also loses
+	those values.
+
+   Deep Copy allocates dynamic memory to new memory blocks and then copies the values found in the orginal 
+	to those blocks of memory.
+
+
