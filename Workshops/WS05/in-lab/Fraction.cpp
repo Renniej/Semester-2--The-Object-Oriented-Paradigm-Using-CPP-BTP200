@@ -1,3 +1,11 @@
+
+/**********************************************************
+* Name: Tai-Juan Rennie
+* Student ID:
+* Seneca email: trennie1@gmail.com
+* Date of Completion: 6/15/2018
+**********************************************************/
+
 // TODO: insert header files
 #include <iostream>
 #include "Fraction.h"

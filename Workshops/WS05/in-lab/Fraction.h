@@ -1,4 +1,12 @@
-// TODO: header file guard
+/**********************************************************
+* Name: Tai-Juan Rennie
+* Student ID:
+* Seneca email: trennie1@gmail.com
+* Date of Completion: 6/15/2018
+**********************************************************/
+
+
+/// TODO: header file guard
 
 #ifndef _SICT_FRACTION_H
 #define _SICT_FRACTION_H
