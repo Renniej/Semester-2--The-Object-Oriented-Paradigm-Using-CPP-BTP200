@@ -11,10 +11,12 @@ namespace sict {
 		int *mPhone_Nums;
 		int mNumOfPhoneNums;
 
+		void NewPhoneNum(int Phone_Num); //made due to code duplication
 	public:
 
 		Contact();
-		Contact(const char &name, const int &Phone_Nums, int NumOfPhoneNums);
+		Contact(const char *name, const int *Phone_Nums, int NumOfPhoneNums);
+
 		~Contact();
 
 
