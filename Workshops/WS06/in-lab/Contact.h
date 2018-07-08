@@ -8,17 +8,19 @@ namespace sict {
 	class Contact {
 
 		char mContact_Name[20];
-		int *mPhone_Nums;
+		long long *mPhone_Nums;
 		int mNumOfPhoneNums;
 
-		void NewPhoneNum(int Phone_Num); //made due to code duplication
+		void NewPhoneNum(long long Phone_Num); //made due to code duplication
 	public:
 
 		Contact();
-		Contact(const char *name, const int *Phone_Nums, int NumOfPhoneNums);
+		Contact(const char *name, const long long *Phone_Nums, int NumOfPhoneNums);
 
 		~Contact();
-
+		bool isEmpty() const;
+		void display() const;
+		void setToEmpty();
 
 
 

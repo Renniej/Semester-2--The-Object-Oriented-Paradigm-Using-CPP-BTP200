@@ -1,7 +1,7 @@
- Workshop 6 - Class with a Resource
- w6_in_lab.cpp
- Chris Szalwinski
- 2017/06/14
+// Workshop 6 - Class with a Resource
+ //w6_in_lab.cpp
+ //Chris Szalwinski
+ //2017/06/14
 
 #include <iostream>
 #include "Contact.h"
