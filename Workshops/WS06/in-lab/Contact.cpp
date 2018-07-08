@@ -187,7 +187,7 @@ namespace sict {
 		string strNum;
 
 		if (isEmpty()) { //If object is in empty state then print empty state
-			cout << "Empty Contact!" << endl;
+			cout << "Empty contact!" << endl;
 		}
 		else {
 			
@@ -209,6 +209,7 @@ namespace sict {
 					strNum.insert(0, "(+");
 					strNum.insert(3, ") ");
 					strNum.insert(8, " ");
+					strNum.insert(12, "-");
 
 					
 					
@@ -222,7 +223,7 @@ namespace sict {
 					strNum.insert(0, "(+");
 					strNum.insert(4, ") ");
 					strNum.insert(9, " ");
-					
+					strNum.insert(13, "-");
 				}
 
 				//Once number is formatted properly print it
