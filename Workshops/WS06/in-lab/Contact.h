@@ -1,3 +1,10 @@
+/**********************************************************
+* Name: Tai-Juan Rennie
+* Student ID: 101359172
+* Seneca email: trennie1
+* Date of Completion: 7/7/2018
+**********************************************************/
+
 #ifndef _SICT_CONTACT_H
 #define _SICT_CONTACT_H
 

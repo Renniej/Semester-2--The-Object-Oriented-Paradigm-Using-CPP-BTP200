@@ -1,3 +1,11 @@
+/**********************************************************
+* Name: Tai-Juan Rennie
+* Student ID: 101359172
+* Seneca email: trennie1
+* Date of Completion: 7/7/2018
+**********************************************************/
+
+
 #include <cstring>
 #include <string>
 #include <iostream> //used for debugging
