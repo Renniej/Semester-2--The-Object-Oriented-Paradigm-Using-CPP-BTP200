@@ -1,0 +1,19 @@
+Note: I talked to you during wednesday class if I could hand in this assignment on thursday(11:59pm) via
+my accomedations. 
+
+
+1) If your copy operator does a shallow copy of dynamically allocated resources then one of the
+   resources may end up being deallocated due to one of the objects going out of scope.   
+	This behaviour can lead to unpredictable behaviour from your program.
+
+2)  If you find yourself duplicating code then it may be better to just create a function with that code.
+
+3)  That in most circumstances it is best to deep copy.  Also making my code more modulated from the in-lab part
+made that at home part much more easier as I barely wrote any new code.   This realization will probably help me a lot
+in the future. 
+
+
+
+Quiz Reflection:
+
+I was not able to get quiz 5 back.
