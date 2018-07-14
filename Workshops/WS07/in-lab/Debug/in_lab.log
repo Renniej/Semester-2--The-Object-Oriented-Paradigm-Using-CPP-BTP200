@@ -1,6 +1,6 @@
 ﻿  Hero.cpp
-c:\users\rennie\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\workshops\ws07\in-lab\hero.cpp(118): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
-c:\users\rennie\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\workshops\ws07\in-lab\hero.cpp(133): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(337): note: see declaration of 'strncpy'
-  in_lab.vcxproj -> C:\Users\Rennie\Documents\GitHub\Semester-2--The-Object-Oriented-Paradigm-Using-CPP-BTP200\Workshops\WS07\in-lab\Debug\in_lab.exe
+l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\workshops\ws07\in-lab\hero.cpp(116): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\workshops\ws07\in-lab\hero.cpp(131): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(337): note: see declaration of 'strncpy'
+  in_lab.vcxproj -> L:\Documents\GitHub\Semester-2--The-Object-Oriented-Paradigm-Using-CPP-BTP200\Workshops\WS07\in-lab\Debug\in_lab.exe

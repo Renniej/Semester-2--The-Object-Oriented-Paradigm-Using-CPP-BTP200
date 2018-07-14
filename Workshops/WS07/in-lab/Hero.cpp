@@ -24,38 +24,36 @@ namespace sict {
 		 Hero cpy1(first);
 		 Hero cpy2(second);
 		 
-		 int Winner = 1;
+	
 		 const Hero *winner = nullptr;
+		 winner = &first;
 
 		 int NumofRounds = 0;
 
 		 for (int i = 0; i < MAX_ROUNDS && NumofRounds == 0; ++i) {
 
 			 cpy1 -= cpy2.attackStrength();
-			
+			 cpy2 -= cpy1.attackStrength();
+
 
 			 if (!cpy1.isAlive()) {
-				 
-				 Winner = 2;
+				 winner = &second;
+				
 				 NumofRounds = i + 1;
+				
 			 }
 			 else if(!cpy2.isAlive()) {
+				 winner = &first;
 				 
-				 Winner = 1;
 				 NumofRounds = i + 1;
+			
 			 }
 
 
 		 }
+	
+			 cout << "Ancient Battle! " << first << " vs " << second << " : Winner is " << *winner << " in " << NumofRounds << "." << endl;
 
-		 if (Winner == 1) {
-			 cout << "Ancient Battle! " << first << "vs" << second << " : Winner is " << first << " in " << NumofRounds <<endl;
-			 winner = &first;
-		 }
-		 else {
-			 cout << first << " vs " << second << " : Winner is " << second << " in " << NumofRounds << endl;
-			 winner = &second;
-		 }
 
 		 return *winner;
 
