@@ -69,6 +69,7 @@ namespace AMA {
 
 
 
+
 	int Date::mdays(int mon, int year)const {// number of days in month mon_ and year year_
 		int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, -1 };
 		int month = mon >= 1 && mon <= 12 ? mon : 13;

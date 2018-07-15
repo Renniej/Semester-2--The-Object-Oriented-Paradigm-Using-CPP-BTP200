@@ -21,10 +21,12 @@ using namespace std;
 
 namespace AMA {
 
+	const int min_year = 2000;
+	const int max_year = 2030;
+
   class Date {
 
-	  const int min_year = 2000;
-	  const int max_year = 2030;
+
 
 	  int m_year;
 	  int m_month;
