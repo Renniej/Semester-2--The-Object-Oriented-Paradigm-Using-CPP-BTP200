@@ -52,7 +52,7 @@ namespace sict {
 
 		 }
 	
-			 cout << "Ancient Battle! " << first << " vs " << second << " : Winner is " << *winner << " in " << NumofRounds << " rounds." << endl;
+			 cout << "Ancient Battle! " << first << " vs " << second << " : Winner is " << *winner << " in " << NumofRounds << "." << endl;
 
 
 		 return *winner;
