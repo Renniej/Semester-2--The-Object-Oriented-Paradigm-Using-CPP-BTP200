@@ -22,7 +22,7 @@ using namespace std;
 #define CIN_FAILED  1  
 #define YEAR_ERROR  2  
 #define MON_ERROR   3  
-#define DAY_ERROR  4 
+#define DAY_ERROR   4 
 
 namespace AMA {
 
