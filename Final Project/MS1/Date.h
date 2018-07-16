@@ -18,6 +18,11 @@
 #include <iostream>
 
 using namespace std;
+#define NO_ERROR    0  
+#define CIN_FAILED  1  
+#define YEAR_ERROR  2  
+#define MON_ERROR   3  
+#define DAY_ERROR  4 
 
 namespace AMA {
 
@@ -26,7 +31,7 @@ namespace AMA {
 
   class Date {
 
-
+	 
 
 	  int m_year;
 	  int m_month;
@@ -39,16 +44,22 @@ namespace AMA {
      int mdays(int year, int month)const;
 	 void errCode(int errorCode);
 	 void SetToEmpty();
-	 int SetComparator();
+	 void SetComparator();
 
+
+	 void SetDate(int year, int month, int day, int Error);
+	 int CheckInput(int year, int month, int day) const;
   public:
 	  Date();
 	  Date(int year, int month, int day);
 
 	  int errCode() const;
 	  bool bad() const;
+
+	  
+
 	  std::istream& read(std::istream& istr);
-	  std::ostream& write(std::ostream& ostr);
+	  std::ostream& write(std::ostream& ostr) const;
 
 	  bool operator==(const Date& rhs) const;
 	  bool operator!=(const Date& rhs) const;
@@ -63,8 +74,8 @@ namespace AMA {
  
   };
 
-  void operator<<(std::istream& istr);
-  void operator>>(std::istream& istr);
+  std::ostream& operator<<(std::ostream& ostr, const Date& date);
+  std::istream& operator>>(std::istream& istr, const Date& date);
 
 
 

@@ -12,9 +12,15 @@
 // -----------------------------------------------------------
 // Name               Date                 Reason
 /////////////////////////////////////////////////////////////////
+
 #include "Date.h"
 
+using namespace std;
+
+
 namespace AMA {
+
+	
 
 	Date::Date() {
 		SetToEmpty();
@@ -23,6 +29,32 @@ namespace AMA {
 
 
 	Date::Date(int year, int month, int day) {
+
+		int Error_Code = CheckInput(year, month, day);
+
+
+		if (Error_Code == 0) { //if date parameters are valid then set them to date object
+			SetDate(year, month, day, Error_Code);
+		}
+
+		else { // else set date object to safe empty state and specificy the error
+			SetToEmpty();
+			errCode(Error_Code);
+		}
+
+
+	}
+
+	void Date::SetDate(int year, int month, int day, int Error_Code) {
+		m_year = year;
+		m_month = month;
+		m_day = day;
+		errCode(Error_Code);
+		SetComparator();
+	}
+
+	int Date::CheckInput(int year, int month, int day) const
+	{
 
 		int Error_Code;
 
@@ -51,23 +83,8 @@ namespace AMA {
 		}
 
 
-
-		if (Error_Code == 0) { //if date parameters are valid then set them to date object
-			m_year = year;
-			m_month = month;
-			m_day = day;
-			errCode(Error_Code);
-			SetComparator();
-		}
-		else { // else set date object to safe empty state and specificy the error
-			SetToEmpty();
-			errCode(Error_Code);
-		}
-
-
+		return Error_Code;
 	}
-
-
 
 
 	int Date::mdays(int mon, int year)const {// number of days in month mon_ and year year_
@@ -86,7 +103,7 @@ namespace AMA {
 	}
 
 
-	int Date::SetComparator() { //self-explaintory
+	void Date::SetComparator() { //self-explaintory
 		m_comparator = m_year * 372 + m_month * 13 + m_day;
 	}
 
@@ -99,7 +116,7 @@ namespace AMA {
 		return m_error_state;
 	}
 
-	bool Date::bad() const {
+	bool Date::bad() const {  //checks if date object is in an error_state
 
 		bool bad_Date = false;
 
@@ -113,7 +130,132 @@ namespace AMA {
 
 
 
+	bool Date::operator==(const Date& rhs) const {
 
+		bool AreEqual = false;
+
+		if (rhs.m_comparator == m_comparator) {
+			AreEqual = true;
+		}
+
+		return AreEqual;
+	}
+
+	bool Date::operator!=(const Date& rhs) const {
+
+		bool AreNotEqual = false;
+
+		if (rhs.m_comparator != m_comparator) {
+			AreNotEqual = true;
+		}
+
+		return AreNotEqual;
+	}
+
+
+	bool Date::operator<(const Date& rhs) const {
+
+		bool isSmaller = false;
+
+		if (m_comparator < rhs.m_comparator) {
+			isSmaller = true;
+		}
+
+		return isSmaller;
+
+		
+	}
+
+	bool Date::operator>(const Date& rhs) const {
+
+
+		bool isGreater = false;
+
+		if (m_comparator > rhs.m_comparator) {
+			isGreater = true;
+		}
+
+		return isGreater;
+
+	}
+
+	bool Date::operator>=(const Date& rhs) const {
+
+
+		bool isGreater = false;
+
+		if (m_comparator >= rhs.m_comparator) {
+			isGreater = true;
+		}
+
+		return isGreater;
+
+	}
+
+	bool Date::operator<=(const Date& rhs) const {
+
+		bool isGreater = false;
+
+		if (m_comparator <= rhs.m_comparator) {
+			isGreater = true;
+		}
+
+		return isGreater;
+
+	}
+
+	std::ostream& operator<<(std::ostream& ostr, const Date& date) {
+		
+		date.write(ostr);
+		return ostr;
+		
+	}
+
+	std::istream& operator>>(std::istream& istr,  Date& date) {
+
+		date.read(istr);
+		return istr;
+
+	}
+
+	
+
+	std::istream& Date::read(std::istream& istr) {
+
+		char ignore; //ignores slashes and dashes
+
+		int year;
+		int month;
+		int day;
+		
+
+		istr >> year >> ignore >> month >> ignore >> day;
+
+		if (istr.fail()) {
+
+			errCode(1);	//Set object's error code to CIN_FAILED
+		}
+
+		else if (CheckInput(year, month, day) == 0) { //if input is valid then Set Date object
+
+			SetDate(year, month, day, 0);
+			
+		}
+
+		return istr;
+
+
+	}
+
+	std::ostream& Date::write(std::ostream& ostr) const{
+
+		
+
+		ostr << m_year << "/" << m_month << "/" << m_day;
+
+		return ostr;
+
+	}
 
 
 
