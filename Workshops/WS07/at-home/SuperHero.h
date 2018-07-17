@@ -21,7 +21,11 @@ namespace sict {
 
 		SuperHero();
 		SuperHero(const char* Name, int Health, int Attack, int SuperAttack, int SuperDefend);
+		SuperHero(const SuperHero& org);
 		
+
+
+
 		int attackStrength() const;
 		int defend() const;
 
@@ -33,7 +37,8 @@ namespace sict {
 
 
 	};
-	
+
+	const SuperHero& SuperHeroBattle(const SuperHero& first, const SuperHero& second);
 	const SuperHero& operator*(const SuperHero& first, const SuperHero& second);
 }
 

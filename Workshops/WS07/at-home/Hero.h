@@ -35,6 +35,7 @@ namespace sict {
 		void operator-= (int Attack);
 
 		const char* getName() const;
+		int getHealth() const;
 
 		bool isEmpty() const;
 		void SetToEmpty();

@@ -90,6 +90,10 @@ namespace sict {
 		return Empty;
 	}
 
+	int Hero::getHealth() const {
+		return mHealth;
+	}
+
 	bool Hero::isAlive() const { //Check if health is above 0
 
 		bool Alive = true;
