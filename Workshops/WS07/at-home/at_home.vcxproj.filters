@@ -18,10 +18,10 @@
     <ClCompile Include="Hero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SuperHero.cpp">
+    <ClCompile Include="w7_at_home.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="w7_at_home.cpp">
+    <ClCompile Include="SuperHero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
