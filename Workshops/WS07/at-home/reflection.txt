@@ -1,0 +1,15 @@
+1. Hero class does not need to know about the existence of the SuperHero class but due to us setting access to public
+for the SuperHero class it is aware of it.  (Hero does not inherit from anything so it is standalone)
+
+2. SuperHero class needs to be aware of Hero class in order to inherit from it's Hero parent class.
+
+3.  "Ancient Battle!" because it treated SuperHero as if it was a Hero in the circumstance that a SuperHero fights
+a Hero.
+
+
+4.  False because you haven't intialized the Hero's objects properly.  
+
+
+Reflection:   Quiz 6
+
+5.  TRUE
