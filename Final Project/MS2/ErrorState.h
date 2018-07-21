@@ -1,4 +1,4 @@
-#ifndef ERRORSTATE_H
+#ifndef AMA_ERRORSTATE_H
 #define AMA_ERRORSTATE_H
 
 
@@ -12,6 +12,7 @@ namespace AMA {
 	public:
 
 		explicit ErrorState(const char* errorMessage = nullptr);
+
 
 		ErrorState(const ErrorState& em) = delete; //stops copy constructor from being called.
 		ErrorState& operator=(const ErrorState& em) = delete;
@@ -27,7 +28,7 @@ namespace AMA {
 
 	};
 
-	std::ostream& operator<<(std::ostream& os, ErrorState Error_State);
+	std::ostream& operator<<(std::ostream& os, const ErrorState &Error_State);
 
 }
 

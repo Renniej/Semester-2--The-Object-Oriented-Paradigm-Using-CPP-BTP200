@@ -33,6 +33,7 @@ namespace sict {
 		// TODO: display inserts the account information into an ostream
 
 		virtual void display(std::ostream& os) const;
+	 
 	};
 
 	// TODO: add prototype for Allocator function

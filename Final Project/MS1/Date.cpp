@@ -213,8 +213,7 @@ namespace AMA {
 
 	std::istream& operator>>(std::istream& istr,  Date& date) {
 
-		date.read(istr);
-		return istr;
+		return date.read(istr);
 
 	}
 
