@@ -16,6 +16,7 @@ namespace sict {
 
 	class iAccount {
 
+	
 
 	public:
 		// TODO: credit adds +ve amount to the balance
@@ -32,13 +33,15 @@ namespace sict {
 
 		// TODO: display inserts the account information into an ostream
 
-		virtual void display(std::ostream& os) const;
+		virtual void display(std::ostream& os) const = 0;
 	 
+		virtual ~iAccount() {}
+		
 	};
 
 	// TODO: add prototype for Allocator function
 
-	inline iAccount* CreateAccount(const char* type, double start_balance);
+	 iAccount* CreateAccount(const char* type, double start_balance);
 }
 #endif
 
