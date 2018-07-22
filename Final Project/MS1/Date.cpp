@@ -12,32 +12,46 @@
 // -----------------------------------------------------------
 // Name               Date                 Reason
 /////////////////////////////////////////////////////////////////
-
 #include "Date.h"
+
+
 
 using namespace std;
 
 
 namespace AMA {
 
-	
 
-	Date::Date() {
-		SetToEmpty();
-		errCode(0);
+
+
+
+
+	Date::Date()
+	{
+		
+			SetToEmpty();
+			errCode(0);
+		
 	}
 
-
 	Date::Date(int year, int month, int day) {
+		 
+		//cout << "Overloaded Constructor Called(" << year << " " << month <<  " " << day << ")" << endl;
+
 
 		int Error_Code = CheckInput(year, month, day);
 
 
 		if (Error_Code == 0) { //if date parameters are valid then set them to date object
+
+			//cout << "Overloaded Constructor parameters are VALID" << endl;
 			SetDate(year, month, day, Error_Code);
 		}
 
 		else { // else set date object to safe empty state and specificy the error
+
+			//cout << "Overloaded Constructor parameters are INVALID" << endl;
+
 			SetToEmpty();
 			errCode(Error_Code);
 		}
@@ -56,9 +70,13 @@ namespace AMA {
 	int Date::CheckInput(int year, int month, int day) const
 	{
 
+		//cout << "CHECKINPUT(" << year << " " << month << " " << day << ")" << endl;
+		//cout << "MAX YEAR VALUE: " << max_year << "    " << "MIN YEAR VALUE: " << min_year << endl;
 		int Error_Code;
 
-		if (m_year > min_year && m_year < max_year) {
+		if (year >= min_year && year <= max_year) {
+		
+
 			if (month >= 1 && month <= 12) {
 
 				if (day >= 1 && day <= mdays(month, year)) {
@@ -82,6 +100,7 @@ namespace AMA {
 			Error_Code = 2; //Year is invalid
 		}
 
+		//cout << "CheckInput Returns ERROR_CODE: " << Error_Code << endl;
 
 		return Error_Code;
 	}
@@ -105,13 +124,14 @@ namespace AMA {
 
 	void Date::SetComparator() { //self-explaintory
 		m_comparator = m_year * 372 + m_month * 13 + m_day;
+		//cout << "M_COMPARATOR = " << m_comparator << endl;
 	}
 
 
 	void Date::errCode(int errorCode) { //sets error code of 
 		m_error_state = errorCode;
 	}
-	
+
 	int Date::errCode() const { //Displays error code
 		return m_error_state;
 	}
@@ -143,13 +163,7 @@ namespace AMA {
 
 	bool Date::operator!=(const Date& rhs) const {
 
-		bool AreNotEqual = false;
-
-		if (rhs.m_comparator != m_comparator) {
-			AreNotEqual = true;
-		}
-
-		return AreNotEqual;
+		return (rhs.m_comparator != m_comparator);
 	}
 
 
@@ -163,7 +177,7 @@ namespace AMA {
 
 		return isSmaller;
 
-		
+
 	}
 
 	bool Date::operator>(const Date& rhs) const {
@@ -194,30 +208,25 @@ namespace AMA {
 
 	bool Date::operator<=(const Date& rhs) const {
 
-		bool isGreater = false;
 
-		if (m_comparator <= rhs.m_comparator) {
-			isGreater = true;
-		}
-
-		return isGreater;
+		return (m_comparator <= rhs.m_comparator);
 
 	}
 
 	std::ostream& operator<<(std::ostream& ostr, const Date& date) {
-		
+
 		date.write(ostr);
 		return ostr;
-		
+
 	}
 
-	std::istream& operator>>(std::istream& istr,  Date& date) {
+	std::istream& operator>>(std::istream& istr, Date& date) {
 
 		return date.read(istr);
 
 	}
 
-	
+
 
 	std::istream& Date::read(std::istream& istr) {
 
@@ -230,27 +239,54 @@ namespace AMA {
 
 		istr >> year >> ignore >> month >> ignore >> day;
 
+		int Error_Code = CheckInput(year, month, day);
+
 		if (istr.fail()) {
 
 			errCode(1);	//Set object's error code to CIN_FAILED
 		}
 
-		else if (CheckInput(year, month, day) == 0) { //if input is valid then Set Date object
+		else if ( Error_Code == 0) { //if input is valid then Set Date object
 
 			SetDate(year, month, day, 0);
-			
+
 		}
+		else {
+			errCode(Error_Code);
+		}
+		
 
 		return istr;
 
 
 	}
 
-	std::ostream& Date::write(std::ostream& ostr) const{
+	std::ostream& Date::write(std::ostream& ostr) const {
 
-		
+		string day;
+		string month;
 
-		ostr << m_year << "/" << m_month << "/" << m_day;
+		if (m_comparator != 0) {
+
+			day = to_string(m_day);
+			month = to_string(m_month);
+
+			if (m_day < 10) {
+				day.insert(0,"0");
+			}
+
+			if (m_month < 10) {
+				month.insert(0, "0");
+			}
+
+
+			
+				ostr << m_year << "/" << month << "/" << day;
+			
+		}
+		else {
+			ostr << "0/00/00";
+		}
 
 		return ostr;
 
@@ -259,3 +295,4 @@ namespace AMA {
 
 
 }
+

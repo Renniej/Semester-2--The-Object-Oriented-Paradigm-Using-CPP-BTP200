@@ -8,7 +8,7 @@ using namespace std;
 namespace AMA {
 
 	
-	ErrorState::ErrorState(const char* errorMessage) {
+	ErrorState::ErrorState(const char* errorMessage) { //Overloaded constructor
 
 		if (errorMessage != nullptr) {
 
@@ -40,14 +40,14 @@ namespace AMA {
 	}
 
 
-	bool ErrorState::isClear() const {
+	bool ErrorState::isClear() const { // Checks if Error object is in empty state
 
 		return (m_Error_Message == nullptr);
 
 	}
 
 
-	void ErrorState::message(const char * str) {
+	void ErrorState::message(const char * str) { //Sets error message
 
 
 
@@ -60,7 +60,7 @@ namespace AMA {
 			}
 
 
-			
+			m_Error_Message = new char[strlen(str) + 1];
 
 			strcpy(m_Error_Message, str);
 
@@ -69,7 +69,7 @@ namespace AMA {
 
 	}
 
-	const char * ErrorState::message() const {
+	const char * ErrorState::message() const {  //Displays error message of error object
 
 		return m_Error_Message;
 
