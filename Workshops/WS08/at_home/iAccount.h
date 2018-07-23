@@ -35,7 +35,7 @@ namespace sict {
 
 		virtual void display(std::ostream& os) const = 0;
 	 
-		virtual ~iAccount() = default;
+		virtual ~iAccount() {}
 		
 	};
 
