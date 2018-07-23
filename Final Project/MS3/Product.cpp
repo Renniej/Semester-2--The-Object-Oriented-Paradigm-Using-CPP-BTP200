@@ -1,6 +1,10 @@
 #include <cstring>
+#include <string>
 #include "Product.h"
 
+
+
+using namespace std;
 namespace AMA {
 
 	void Product::Deallocate() {
@@ -12,6 +16,8 @@ namespace AMA {
 		else {
 			delete m_PName;
 		}
+
+		m_PName = nullptr;
 	}
 
 
@@ -68,8 +74,18 @@ namespace AMA {
 	}
 
 
-	Product::Product(char type = 'N') { //Sets type of object
+	Product::Product(char type = 'N') { //Sets object to empty state + sets the type of product
 		m_Type = type;
+		m_PName = new char[5];
+
+		strcpy(m_PName, "NULL");
+		strcpy(m_SKU, "0000");
+		strcpy(m_Desc, "Empty State");
+		m_Current_Inv = -999;
+		m_Needed_Inv = -999;
+		m_Price = -999;
+		m_Taxable = false;
+
 	}
 
 	void Product::quantity(int amount) { //sets inventory on hand amount
@@ -88,7 +104,7 @@ namespace AMA {
 
 
 	bool Product::isEmpty() const {
-		return (m_Type == 'N');
+		return (m_Price == -999);
 	}
 
 	double Product::total_cost() const{ //returns quantity * (cost or price) depending on if the product is taxable
@@ -101,6 +117,7 @@ namespace AMA {
 		//Assumes all parameters are within valid constraints
 
 		//Copy over sku, pname and description
+		m_Type = 'N';
 		strcpy(m_SKU, sku);
 		name(pname);
 		strcpy(m_Desc, desc);
@@ -121,8 +138,14 @@ namespace AMA {
 
 	}
 
+	Product::~Product() { //Destructor that deallocates dynamically allocated name
+		Deallocate();
+	}
+
 	Product& Product::operator=(const Product& parent) {
 
+		
+		
 		name(parent.name());
 		strcpy(m_SKU, parent.sku());
 		strcpy(m_Desc, parent.unit());
@@ -136,9 +159,61 @@ namespace AMA {
 
 	}
 
-	Product::~Product() {
-		Deallocate();
+	std::fstream & Product::store(std::fstream & file, bool newLine = true) const
+	{
+		
+		for (int i = 0; i < 8; ++i) {
+
+			switch (i) {
+
+			case 0: 
+				file << m_Type << ",";
+				break;
+
+			case 1:
+				file << sku() << ",";
+				break;
+			case 2:
+				file << unit() << ",";
+				break;
+			case 3: 
+				file << name() << ",";
+				break;
+
+			case 4:
+				file << qtyNeeded() << ",";
+				break;
+			case 5: 
+				file << quantity() << ",";
+				break;
+			case 6:
+				file << price() << ",";
+			case 7:
+				file << taxed();
+				
+				
+			}
+
+		}
+
+		if (newLine == true) {
+			file << endl;
+		}
+
+		return file;
+
+
 	}
+
+
+
+	std::fstream& Product::load(std::fstream& file) {
+		
+	
+
+	}
+
+
 
 
 }

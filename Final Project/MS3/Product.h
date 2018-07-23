@@ -1,6 +1,8 @@
 #ifndef AMA_PRODUCT_H
 #define AMA_PRODUCT_H
 
+#include <iostream>
+#include <fstream>
 #include "ErrorState.h"
 
 
@@ -57,7 +59,8 @@
 			int qtyNeeded() const;
 
 			Product& operator=(const Product& parent);
-
+			std::fstream& store(std::fstream& file, bool newLine = true) const;
+			std::fstream& load(std::fstream& file)
 		};
 
 
