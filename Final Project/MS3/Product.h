@@ -59,10 +59,20 @@
 			int qtyNeeded() const;
 
 			Product& operator=(const Product& parent);
+			bool operator==(const char*SKU) const;
+			bool operator>(const char *SKU) const;
+			bool operator>(const Product& prod) const;
+			int operator+=(int amount);
+
 			std::fstream& store(std::fstream& file, bool newLine = true) const;
-			std::fstream& load(std::fstream& file)
+			std::fstream& load(std::fstream& file);
+			std::ostream& write(std::ostream& os, bool linear) const;
+			std::istream& read(std::istream& is);
 		};
 
+		std::ostream& operator<<(std::ostream& os, const Product& prod);
+		std::istream& operator>>(std::istream& is,  Product& prod);
+		double operator+=(double& price, const Product& prod);
 
 
 	}

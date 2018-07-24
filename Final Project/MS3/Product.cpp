@@ -1,5 +1,6 @@
 #include <cstring>
 #include <string>
+#include <iostream>
 #include "Product.h"
 
 
@@ -103,7 +104,7 @@ namespace AMA {
 	}
 
 
-	bool Product::isEmpty() const {
+	bool Product::isEmpty() const {  //check if object is in empty state
 		return (m_Price == -999);
 	}
 
@@ -162,44 +163,50 @@ namespace AMA {
 	std::fstream & Product::store(std::fstream & file, bool newLine = true) const
 	{
 		
-		for (int i = 0; i < 8; ++i) {
+		if (file.is_open()) {
 
-			switch (i) {
+			for (int i = 0; i < 8; ++i) {
 
-			case 0: 
-				file << m_Type << ",";
-				break;
+				switch (i) {
 
-			case 1:
-				file << sku() << ",";
-				break;
-			case 2:
-				file << unit() << ",";
-				break;
-			case 3: 
-				file << name() << ",";
-				break;
+				case 0:
+					file << m_Type << ",";
+					break;
 
-			case 4:
-				file << qtyNeeded() << ",";
-				break;
-			case 5: 
-				file << quantity() << ",";
-				break;
-			case 6:
-				file << price() << ",";
-			case 7:
-				file << taxed();
-				
-				
+				case 1:
+					file << sku() << ",";
+					break;
+				case 2:
+					file << unit() << ",";
+					break;
+				case 3:
+					file << name() << ",";
+					break;
+
+				case 4:
+					file << qtyNeeded() << ",";
+					break;
+				case 5:
+					file << quantity() << ",";
+					break;
+				case 6:
+					file << price() << ",";
+					break;
+				case 7:
+					file << taxed() ? "True" : "False";
+					break;
+				}
+
 			}
 
+			if (newLine == true) {
+				file << endl;
+			}
 		}
 
-		if (newLine == true) {
-			file << endl;
+		else {
+			cout << "STORE FUNCTION ERROR: FILE IS NOT OPEN" << endl;
 		}
-
 		return file;
 
 
@@ -208,12 +215,287 @@ namespace AMA {
 
 
 	std::fstream& Product::load(std::fstream& file) {
+
+		string Name;
+		string Type;
+		string SKU;
+		string Desc;
+		string Cur_Inv;
+		string Needed_Inv;
+		string Price;
+		string Taxable;
+
+		if (file.is_open()) {
+
+			for (int i = 0; i < 8; ++i) {  //Grab data stored in each coloum of record
+
+				switch (i) {
+
+				case 0:
+					std::getline(file, Type, ',');
+					break;
+				case 1:
+					std::getline(file, SKU, ',');
+					break;
+				case 2:
+					std::getline(file, Desc, ',');
+					break;
+				case 3:
+					std::getline(file, Name, ',');
+					break;
+
+				case 4:
+					std::getline(file, Needed_Inv, ',');
+					break;
+				case 5:
+					std::getline(file, Cur_Inv, ',');
+					break;
+				case 6:
+					std::getline(file, Price, ',');
+					break;
+				case 7:
+					std::getline(file, Taxable, ',');
+					break;
+				}
+
+			}
+
+
+			//Copy data to current Product oject
+
+			//.c_str() convers strings to const char * 's
+			name(Name.c_str());  //Sends String "Name" as Const Char * to Name operator
+			m_Type = Type[0];
+
+			strcpy(m_SKU, SKU.c_str());
+			strcpy(m_Desc, Desc.c_str());
+
+			m_Current_Inv = stoi(Cur_Inv);  //stoi converts string to int
+			m_Needed_Inv = stoi(Needed_Inv);
+
+			m_Price = stof(Price); //stof converts string to float(double)
+
+			m_Taxable = (Taxable == "True" ? true : false);
+
+		}
+		else {
+			cout << "LOAD FUNCTION ERROR: FILE IS NOT OPEN" << endl;
+		}
 		
-	
+
+		return file;
+	}
+
+	std::ostream & Product::write(std::ostream & os, bool linear) const
+	{
+		
+
+		if (linear == true) {  //I dont think we meet width requirements, look back on guide
+
+			for (int i = 0; i < 6; ++i) {  
+
+				switch (i) {
+
+				case 0:
+					os << m_SKU << '|';
+					break;
+				case 1:
+					os << m_PName << '|';
+					break;
+				case 2:
+					os << cost() << '|';
+					break;
+				case 3:
+					os << quantity() << '|';
+					break;
+
+				case 4:
+					os << unit() << '|';
+					break;
+				case 5:
+					os << qtyNeeded() << '|';
+					break;
+				}
+
+			}
+
+
+		}
+		else {
+
+			for (int i = 0; i < 5; ++i) {  
+
+				switch (i) {
+
+				case 0:
+					os << "Sku: " << m_SKU << '|' << endl;
+					break;
+				case 1:
+					os << "Name: " << *m_PName << '|' << endl;
+					break;
+				case 2:
+					os << "Price: " << taxed() ? cost() : price(); 
+					os << '|' << endl;
+					break;
+				case 3:
+					os << "Quantity on hand: " << quantity() << '|' << endl;
+					break;
+
+				case 4:
+					os << "Quantity needed: " << qtyNeeded() << '|' << endl;
+					break;
+				}
+
+			}
+
+
+		}
+		
+
+		return os;
 
 	}
 
+	std::istream& Product::read(std::istream & is)
+	{
 
 
+		char Taxable;
+		bool ErrorFound = false;
+		
+		Product tmp;
+
+
+		for (int i = 0; i < 7 && !is.fail(); ++i) {
+
+			switch (i) {
+
+				case 0:
+					is >> tmp.m_SKU;
+					break;
+
+				case 1:
+					is >> tmp.m_PName;
+					break;
+
+				case 2:
+					is >> tmp.m_Desc;
+					break;
+
+				case 3:
+					is >> Taxable;
+					if (Taxable == 'Y' || Taxable == 'y') {
+						tmp.m_Taxable = true;
+					}
+					else if (Taxable == 'N' || Taxable == 'n') {
+						tmp.m_Taxable = false;
+					}
+					else {
+						is.setstate(std::ios::failbit);
+						ErrorFound = true;
+						m_Error.message("Only(Y)es or (N)o are acceptable");
+					}
+					break;
+
+				case 4:
+					is >> tmp.m_Price;
+
+					if (tmp.m_Price < 0) {
+						is.setstate(std::ios::failbit);
+						ErrorFound = true;
+						m_Error.message("Invalid Price Entry");
+					}
+
+					break;
+
+				case 5:
+					is >> tmp.m_Current_Inv;
+
+					if (tmp.m_Current_Inv < 0) {
+						is.setstate(std::ios::failbit);
+						ErrorFound = true;
+						m_Error.message("Invalid Quantity Entry");
+					}
+
+					break;
+
+				case 6:
+					is >> tmp.m_Needed_Inv;
+					
+					if (tmp.m_Needed_Inv < 0) {
+						is.setstate(std::ios::failbit);
+						ErrorFound = true;
+						m_Error.message("Invalid Quantity Needed Entry");
+					}
+
+					break;
+
+
+			}
+
+
+		}
+
+		if (!ErrorFound) { //if error is not found then copy tmp Product object to current
+			*this = tmp;
+		}
+
+
+		return is;
+	}
+
+
+	bool Product::operator==(const char * SKU) const {
+
+		return (sku() == SKU);
+
+	}
+
+	bool Product::operator>(const char * SKU) const
+	{
+		return (sku() > SKU);
+	}
+
+	bool Product::operator>(const Product & prod) const 
+	{
+		
+		return (name() > prod.name());
+
+	}
+
+	int Product::operator+=(int amount) {
+
+		if (amount > 0) {
+			m_Current_Inv += amount;
+		}
+
+		return quantity();
+	}
+
+
+	
+
+
+
+
+	std::ostream & operator<<(std::ostream & os, const Product & prod)
+	{
+		prod.write(os, true);
+	}
+
+	std::istream & operator>>(std::istream & is,  Product & prod)
+	{
+		prod.read(is);
+	}
+
+	double operator+=(double & price, const Product & prod)
+	{
+		
+		price += prod.total_cost();
+		return price;
+
+	}
+
+	
 
 }
