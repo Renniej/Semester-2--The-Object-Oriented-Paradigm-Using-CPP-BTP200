@@ -75,7 +75,7 @@ namespace AMA {
 	}
 
 
-	Product::Product(char type = 'N') { //Sets object to empty state + sets the type of product
+	Product::Product(char type) { //Sets object to empty state + sets the type of product
 		m_Type = type;
 		m_PName = new char[5];
 
@@ -114,12 +114,13 @@ namespace AMA {
 
 	}
 
-	Product::Product(const char * sku, const char * pname, const char* desc, int current_inv = 0, bool taxable = true, double price = 0, int needed_inv = 0) {
+	Product::Product(const char * sku, const char * pname, const char* desc, int current_inv , bool taxable , double price, int needed_inv ) {
 		//Assumes all parameters are within valid constraints
 
 		//Copy over sku, pname and description
 		m_Type = 'N';
 		strcpy(m_SKU, sku);
+		m_PName = nullptr;
 		name(pname);
 		strcpy(m_Desc, desc);
 
@@ -160,7 +161,7 @@ namespace AMA {
 
 	}
 
-	std::fstream & Product::store(std::fstream & file, bool newLine = true) const
+	std::fstream & Product::store(std::fstream & file, bool newLine) const
 	{
 		
 		if (file.is_open()) {
@@ -481,11 +482,13 @@ namespace AMA {
 	std::ostream & operator<<(std::ostream & os, const Product & prod)
 	{
 		prod.write(os, true);
+		return os;
 	}
 
 	std::istream & operator>>(std::istream & is,  Product & prod)
 	{
 		prod.read(is);
+		return is;
 	}
 
 	double operator+=(double & price, const Product & prod)

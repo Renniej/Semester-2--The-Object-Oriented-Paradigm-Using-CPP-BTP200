@@ -9,9 +9,9 @@
 
 	namespace AMA {
 
-	#define MAX_SKU_LEN 7
-	#define MAX_UNIT_CHARS 10
-	#define MAX_DESC_CHARS 75
+	#define max_sku_length 7
+	#define max_unit_length 10
+	#define max_name_length 75
 	#define TAX_RATE 13
 
 
@@ -22,8 +22,8 @@
 
 			char * m_PName;
 			char m_Type;
-			char m_SKU[MAX_SKU_LEN];
-			char m_Desc[MAX_DESC_CHARS];
+			char m_SKU[max_sku_length];
+			char m_Desc[max_name_length];
 			int m_Current_Inv;
 			int m_Needed_Inv;
 			double m_Price;
