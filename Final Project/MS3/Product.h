@@ -23,7 +23,7 @@
 			char * m_PName;
 			char m_Type;
 			char m_SKU[max_sku_length];
-			char m_Desc[max_name_length];
+			char m_Unit[max_name_length];
 			int m_Current_Inv;
 			int m_Needed_Inv;
 			double m_Price;

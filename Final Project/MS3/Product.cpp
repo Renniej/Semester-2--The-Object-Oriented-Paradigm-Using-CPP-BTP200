@@ -10,30 +10,44 @@ namespace AMA {
 
 	void Product::Deallocate() {
 
-		if (strlen(m_PName) > 1) {
+		
 
-			delete[] m_PName;
-		}
-		else {
-			delete m_PName;
-		}
 
-		m_PName = nullptr;
+		if (m_PName != nullptr) {  //if m_PName is alreadt allocating memory then deallocate it
+			//cout << "DEALLOCATING PNAME = " << m_PName << endl;
+			if (strlen(m_PName) > 1) {
+
+				delete[] m_PName;
+			}
+			else {
+				delete m_PName;
+			}
+
+			m_PName = nullptr;
+		}
 	}
 
 
 	//---Procteded functions
 	void Product::name(const char* name) {  //Changes name of object
 
-		if (m_PName != nullptr) {  //if m_PName is alreadt allocating memory then deallocate it
-			Deallocate();
-		}
+		
+		
+			
+	
 
 		//Allocate new memory for name change then copy name over
-		m_PName = nullptr;
-		m_PName = new char[strlen(name) + 1]; 
-		strcpy(m_PName, name);
+		
 
+		if (name) {
+			char  * tmp = new char[strlen(name) + 1];
+			*tmp = *name;
+			m_PName = tmp;
+			strcpy(m_PName, name);
+		}
+		else {
+			Deallocate();
+		}
 
 	}
 
@@ -59,7 +73,7 @@ namespace AMA {
 
 	double Product::cost() const {  //return total price of one product (including tax)
 
-		return taxed() ? price()* ((double)TAX_RATE / 100.00) : price(); //Sends approriate cost depending on if product is taxable
+		return taxed() ?  ( price()* ((double)TAX_RATE / 100.00) ) + price() : price(); //Sends approriate cost depending on if product is taxable
 
 	}
 
@@ -71,7 +85,7 @@ namespace AMA {
 
 
 	const char * Product::unit() const {
-		return m_Desc;
+		return m_Unit;
 	}
 
 
@@ -81,7 +95,7 @@ namespace AMA {
 
 		strcpy(m_PName, "NULL");
 		strcpy(m_SKU, "0000");
-		strcpy(m_Desc, "Empty State");
+		strcpy(m_Unit, "Empty State");
 		m_Current_Inv = -999;
 		m_Needed_Inv = -999;
 		m_Price = -999;
@@ -122,7 +136,7 @@ namespace AMA {
 		strcpy(m_SKU, sku);
 		m_PName = nullptr;
 		name(pname);
-		strcpy(m_Desc, desc);
+		strcpy(m_Unit, desc);
 
 
 		m_Current_Inv = current_inv;
@@ -149,13 +163,14 @@ namespace AMA {
 		
 		
 		name(parent.name());
+
 		strcpy(m_SKU, parent.sku());
-		strcpy(m_Desc, parent.unit());
+		strcpy(m_Unit, parent.unit());
 
 		m_Current_Inv = parent.quantity();
 		m_Needed_Inv = parent.qtyNeeded();
 		m_Taxable = parent.taxed();
-		m_Price = price();
+		m_Price = parent.price();
 
 		return *this;
 
@@ -220,7 +235,7 @@ namespace AMA {
 		string Name;
 		string Type;
 		string SKU;
-		string Desc;
+		string Unit;
 		string Cur_Inv;
 		string Needed_Inv;
 		string Price;
@@ -239,7 +254,7 @@ namespace AMA {
 					std::getline(file, SKU, ',');
 					break;
 				case 2:
-					std::getline(file, Desc, ',');
+					std::getline(file, Unit, ',');
 					break;
 				case 3:
 					std::getline(file, Name, ',');
@@ -269,7 +284,7 @@ namespace AMA {
 			m_Type = Type[0];
 
 			strcpy(m_SKU, SKU.c_str());
-			strcpy(m_Desc, Desc.c_str());
+			strcpy(m_Unit, Unit.c_str());
 
 			m_Current_Inv = stoi(Cur_Inv);  //stoi converts string to int
 			m_Needed_Inv = stoi(Needed_Inv);
@@ -363,11 +378,12 @@ namespace AMA {
 
 		char Taxable;
 		bool ErrorFound = false;
-		
+		string Name;
+
 		Product tmp;
 
 
-		for (int i = 0; i < 7 && !is.fail(); ++i) {
+		for (int i = 0; i < 7 && ErrorFound == false; ++i) {
 
 			switch (i) {
 
@@ -376,11 +392,12 @@ namespace AMA {
 					break;
 
 				case 1:
-					is >> tmp.m_PName;
+					is >> Name;
+					name(Name.c_str());
 					break;
 
 				case 2:
-					is >> tmp.m_Desc;
+					is >> tmp.m_Unit;
 					break;
 
 				case 3:
