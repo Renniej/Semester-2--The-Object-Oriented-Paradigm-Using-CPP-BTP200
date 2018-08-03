@@ -136,6 +136,7 @@ namespace AMA {
 
 		if (this != &parent) {
 
+			m_PName = nullptr;
 			name(parent.name());
 
 			strcpy(m_SKU, parent.sku());
@@ -148,8 +149,10 @@ namespace AMA {
 			m_Taxable = parent.taxed();
 			m_Price = parent.price();
 
-			return *this;
+			
 		}
+
+		return *this;
 	}
 
 	std::fstream & Product::store(std::fstream & file, bool newLine) const
@@ -157,23 +160,29 @@ namespace AMA {
 		
 		if (file.is_open()) {
 
-					file << m_Type << ","
-		
-					 << sku() << ","
-		
-					 << unit() << ","
-			
-					 << *m_PName << ","
+			file << m_Type << ","
 
-					<< m_Error.message() << ","
-		
-					 << qtyNeeded() << ","
+				<< sku() << ","
 
-					 << quantity() << ","
-			
-					 << price() << ","
+				<< unit() << ","
+
+				<< *m_PName << ","
+
+				<< m_Error.message() << ","
+
+				<< qtyNeeded() << ","
+
+				<< quantity() << ","
+
+				<< price() << ",";
 	
-					 << taxed() ? "True" : "False";
+
+						if (taxed()) {
+							file << "True";
+						}
+						else{
+							file << "False";
+						}
 			
 		}
 
