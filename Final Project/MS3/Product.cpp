@@ -18,8 +18,8 @@ namespace AMA {
 
 		//Allocate new memory for name change then copy name over
 		
-		delete[] m_PName;
-
+				delete[] m_PName;
+			
 		if (Pname != nullptr) {
 			m_PName = new char[strlen(Pname) + 1];
 			strcpy(m_PName, Pname);
@@ -163,7 +163,7 @@ namespace AMA {
 		
 					 << unit() << ","
 			
-					 << name() << ","
+					 << *m_PName << ","
 
 					<< m_Error.message() << ","
 		
@@ -194,6 +194,7 @@ namespace AMA {
 
 	std::fstream& Product::load(std::fstream& file) {
 
+		
 		string Name;
 		string Type;
 		string SKU;
@@ -214,6 +215,7 @@ namespace AMA {
 					std::getline(file, Unit, ',');
 			
 					std::getline(file, Name, ',');
+				
 
 					std::getline(file, errMsg, ',');
 		
@@ -323,19 +325,23 @@ namespace AMA {
 			switch (i) {
 
 				case 0:
+					cout << "Sku: ";
 					is >> tmp.m_SKU;
 					break;
 
 				case 1:
+					cout << "Name (no spaces): ";
 					is >> Name;
-					name(Name.c_str());
+					tmp.name(Name.c_str());
 					break;
 
 				case 2:
+					cout << "Unit: ";
 					is >> tmp.m_Unit;
 					break;
 
 				case 3:
+					cout << "Taxed? (y/n): ";
 					is >> Taxable;
 					if (Taxable == 'Y' || Taxable == 'y') {
 						tmp.m_Taxable = true;
@@ -351,6 +357,7 @@ namespace AMA {
 					break;
 
 				case 4:
+					cout << "Price: ";
 					is >> tmp.m_Price;
 
 					if (tmp.m_Price < 0) {
@@ -362,6 +369,7 @@ namespace AMA {
 					break;
 
 				case 5:
+					cout << "Quantity on hand: ";
 					is >> tmp.m_Current_Inv;
 
 					if (tmp.m_Current_Inv < 0) {
@@ -373,6 +381,7 @@ namespace AMA {
 					break;
 
 				case 6:
+					cout << "Quantity needed: ";
 					is >> tmp.m_Needed_Inv;
 					
 					if (tmp.m_Needed_Inv < 0) {
@@ -389,8 +398,10 @@ namespace AMA {
 
 		}
 
+
 		if (!ErrorFound) { //if error is not found then copy tmp Product object to current
 			*this = tmp;
+			
 		}
 
 
@@ -400,19 +411,19 @@ namespace AMA {
 
 	bool Product::operator==(const char * SKU) const {
 
-		return (sku() == SKU);
+		return (strcmp(sku(), SKU) == 0);
 
 	}
 
 	bool Product::operator>(const char * SKU) const
 	{
-		return (sku() > SKU);
+		return  (strcmp(sku(), SKU )> 0);
 	}
 
 	bool Product::operator>(const Product & prod) const 
 	{
 		
-		return (name() > prod.name());
+		return (strcmp(name(), prod.name()) > 0);
 
 	}
 
