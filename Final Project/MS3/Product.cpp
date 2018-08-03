@@ -1,4 +1,5 @@
 #include <cstring>
+#include <iomanip>
 #include <string>
 #include <iostream>
 #include "Product.h"
@@ -264,28 +265,36 @@ namespace AMA {
 
 	std::ostream & Product::write(std::ostream & os, bool linear) const
 	{
-		
+	
 
 		if (linear == true) {  //I dont think we meet width requirements, look back on guide
 
 					os.width(max_sku_length);
-					os << m_SKU << '|';
+					os << std::left << m_SKU ;
+					
+					os << '|';
 			
 					os.width(20);
-					os << m_PName << '|';
+					os << std::left << m_PName;
+			
+					os << '|';
 			
 					os.width(7);
-					os << cost() << '|';
+		
+					os << std::right << ::setprecision(2) << std::fixed << cost() <<   '|';
 			
 
 					os.width(4);
+			
 					os << quantity() << '|';
 
 
 					os.width(10);
+		
 					os << unit() << '|';
 			
 					os.width(4);
+					os << std::right;
 					os << qtyNeeded() << '|';
 				
 				
