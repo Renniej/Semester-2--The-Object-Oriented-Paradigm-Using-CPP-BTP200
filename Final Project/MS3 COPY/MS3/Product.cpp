@@ -68,9 +68,15 @@ namespace AMA {
 
 	Product::Product(char type) { //Sets object to empty state + sets the type of product
 		m_Type = type;
-		m_PName = nullptr;
+		m_PName = new char[5];
 
-	
+		strcpy(m_PName, "NULL");
+		strcpy(m_SKU, "0000");
+		strcpy(m_Unit, "Empty State");
+		m_Current_Inv = -999;
+		m_Needed_Inv = -999;
+		m_Price = -999;
+		m_Taxable = false;
 
 	}
 

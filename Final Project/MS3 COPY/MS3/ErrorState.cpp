@@ -60,11 +60,10 @@ namespace AMA {
 			}
 
 
-			if (str != nullptr) {
-				m_Error_Message = new char[strlen(str) + 1];
+			m_Error_Message = new char[strlen(str) + 1];
 
-				strcpy(m_Error_Message, str);
-			}
+			strcpy(m_Error_Message, str);
+
 
 
 
