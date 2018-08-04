@@ -1,0 +1,14 @@
+1. Since the program only compiles template functions when called on it can not be put into a cpp file for 
+pre-compliation. Instead it must be declared and defined in the header file.
+
+
+2.  The template function only works when it is put below main as it only compiles when it is alled.
+
+3. Yes, you could but you would be copy and pasting code at that point and that s always a bad practice. 
+	Templates allow for you to hae the same logic and still use differnt types of data.
+
+4. Yes, both are interchangable except in specific cases.
+
+
+
+ 
