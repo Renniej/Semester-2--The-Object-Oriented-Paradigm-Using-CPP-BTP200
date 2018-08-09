@@ -1,0 +1,7 @@
+﻿1>------ Build started: Project: MS4, Configuration: Debug Win32 ------
+1>Allocator.cpp
+1>MyProduct.cpp
+1>ms4_tester.cpp
+1>Generating Code...
+1>MS4.vcxproj -> L:\Documents\GitHub\Semester-2--The-Object-Oriented-Paradigm-Using-CPP-BTP200\Final Project\MS4\Debug\MS4.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

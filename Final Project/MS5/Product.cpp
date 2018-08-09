@@ -1,7 +1,12 @@
 #include <cstring>
+#include <iomanip>
 #include <string>
 #include <iostream>
 #include "Product.h"
+
+
+
+
 
 
 
@@ -18,8 +23,8 @@ namespace AMA {
 
 		//Allocate new memory for name change then copy name over
 		
-		delete[] m_PName;
-
+				delete[] m_PName;
+			
 		if (Pname != nullptr) {
 			m_PName = new char[strlen(Pname) + 1];
 			strcpy(m_PName, Pname);
@@ -68,15 +73,9 @@ namespace AMA {
 
 	Product::Product(char type) { //Sets object to empty state + sets the type of product
 		m_Type = type;
-		m_PName = new char[5];
+		m_PName = nullptr;
 
-		strcpy(m_PName, "NULL");
-		strcpy(m_SKU, "0000");
-		strcpy(m_Unit, "Empty State");
-		m_Current_Inv = -999;
-		m_Needed_Inv = -999;
-		m_Price = -999;
-		m_Taxable = false;
+	
 
 	}
 
@@ -142,6 +141,7 @@ namespace AMA {
 
 		if (this != &parent) {
 
+			m_PName = nullptr;
 			name(parent.name());
 
 			strcpy(m_SKU, parent.sku());
@@ -154,8 +154,10 @@ namespace AMA {
 			m_Taxable = parent.taxed();
 			m_Price = parent.price();
 
-			return *this;
+			
 		}
+
+		return *this;
 	}
 
 	std::fstream & Product::store(std::fstream & file, bool newLine) const
@@ -163,23 +165,29 @@ namespace AMA {
 		
 		if (file.is_open()) {
 
-					file << m_Type << ","
-		
-					 << sku() << ","
-		
-					 << unit() << ","
-			
-					 << name() << ","
+			file << m_Type << ","
 
-					<< m_Error.message() << ","
-		
-					 << qtyNeeded() << ","
+				<< sku() << ","
 
-					 << quantity() << ","
-			
-					 << price() << ","
+				<< unit() << ","
+
+				<< *m_PName << ","
+
+				<< m_Error.message() << ","
+
+				<< qtyNeeded() << ","
+
+				<< quantity() << ","
+
+				<< price() << ",";
 	
-					 << taxed() ? "True" : "False";
+
+						if (taxed()) {
+							file << "True";
+						}
+						else{
+							file << "False";
+						}
 			
 		}
 
@@ -200,6 +208,7 @@ namespace AMA {
 
 	std::fstream& Product::load(std::fstream& file) {
 
+		
 		string Name;
 		string Type;
 		string SKU;
@@ -220,6 +229,7 @@ namespace AMA {
 					std::getline(file, Unit, ',');
 			
 					std::getline(file, Name, ',');
+				
 
 					std::getline(file, errMsg, ',');
 		
@@ -259,28 +269,36 @@ namespace AMA {
 
 	std::ostream & Product::write(std::ostream & os, bool linear) const
 	{
-		
+	
 
 		if (linear == true) {  //I dont think we meet width requirements, look back on guide
 
 					os.width(max_sku_length);
-					os << m_SKU << '|';
+					os << std::left << m_SKU ;
+					
+					os << '|';
 			
 					os.width(20);
-					os << m_PName << '|';
+					os << std::left << m_PName;
+			
+					os << '|';
 			
 					os.width(7);
-					os << cost() << '|';
+		
+					os << std::right << ::setprecision(2) << std::fixed << cost() <<   '|';
 			
 
 					os.width(4);
+			
 					os << quantity() << '|';
 
 
 					os.width(10);
+		
 					os << unit() << '|';
 			
 					os.width(4);
+					os << std::right;
 					os << qtyNeeded() << '|';
 				
 				
@@ -329,19 +347,23 @@ namespace AMA {
 			switch (i) {
 
 				case 0:
+					cout << "Sku: ";
 					is >> tmp.m_SKU;
 					break;
 
 				case 1:
+					cout << "Name (no spaces): ";
 					is >> Name;
-					name(Name.c_str());
+					tmp.name(Name.c_str());
 					break;
 
 				case 2:
+					cout << "Unit: ";
 					is >> tmp.m_Unit;
 					break;
 
 				case 3:
+					cout << "Taxed? (y/n): ";
 					is >> Taxable;
 					if (Taxable == 'Y' || Taxable == 'y') {
 						tmp.m_Taxable = true;
@@ -357,6 +379,7 @@ namespace AMA {
 					break;
 
 				case 4:
+					cout << "Price: ";
 					is >> tmp.m_Price;
 
 					if (tmp.m_Price < 0) {
@@ -368,6 +391,7 @@ namespace AMA {
 					break;
 
 				case 5:
+					cout << "Quantity on hand: ";
 					is >> tmp.m_Current_Inv;
 
 					if (tmp.m_Current_Inv < 0) {
@@ -379,6 +403,7 @@ namespace AMA {
 					break;
 
 				case 6:
+					cout << "Quantity needed: ";
 					is >> tmp.m_Needed_Inv;
 					
 					if (tmp.m_Needed_Inv < 0) {
@@ -395,8 +420,10 @@ namespace AMA {
 
 		}
 
+
 		if (!ErrorFound) { //if error is not found then copy tmp Product object to current
 			*this = tmp;
+			
 		}
 
 
@@ -406,19 +433,19 @@ namespace AMA {
 
 	bool Product::operator==(const char * SKU) const {
 
-		return (sku() == SKU);
+		return (strcmp(sku(), SKU) == 0);
 
 	}
 
 	bool Product::operator>(const char * SKU) const
 	{
-		return (sku() > SKU);
+		return  (strcmp(sku(), SKU )> 0);
 	}
 
-	bool Product::operator>(const Product & prod) const 
+	bool Product::operator>(const iProduct & prod) const 
 	{
 		
-		return (name() > prod.name());
+		return (strcmp(name(), prod.name()) > 0);
 
 	}
 
@@ -437,19 +464,19 @@ namespace AMA {
 
 
 
-	std::ostream & operator<<(std::ostream & os, const Product & prod)
+	std::ostream & operator<<(std::ostream & os, const iProduct & prod)
 	{
 		prod.write(os, true);
 		return os;
 	}
 
-	std::istream & operator>>(std::istream & is,  Product & prod)
+	std::istream & operator>>(std::istream & is,  iProduct & prod)
 	{
 		prod.read(is);
 		return is;
 	}
 
-	double operator+=(double & price, const Product & prod)
+	double operator+=(double & price, const iProduct & prod)
 	{
 		
 		price += prod.total_cost();

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "ErrorState.h"
-
+#include "iProduct.h"
 
 
 	namespace AMA {
@@ -18,7 +18,7 @@
 
 
 
-		class Product {
+		class Product : iProduct {
 
 			char * m_PName;
 			char m_Type;
@@ -61,7 +61,7 @@
 			Product& operator=(const Product& parent);
 			bool operator==(const char*SKU) const;
 			bool operator>(const char *SKU) const;
-			bool operator>(const Product& prod) const;
+			bool operator>(const iProduct& prod) const;
 			int operator+=(int amount);
 
 			std::fstream& store(std::fstream& file, bool newLine = true) const;
@@ -70,9 +70,9 @@
 			std::istream& read(std::istream& is);
 		};
 
-		std::ostream& operator<<(std::ostream& os, const Product& prod);
-		std::istream& operator>>(std::istream& is,  Product& prod);
-		double operator+=(double& price, const Product& prod);
+		std::ostream& operator<<(std::ostream& os, const iProduct& prod);
+		std::istream& operator>>(std::istream& is,  iProduct& prod);
+		double operator+=(double& price, const iProduct& prod);
 
 
 	}
