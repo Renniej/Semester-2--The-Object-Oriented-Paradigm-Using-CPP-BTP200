@@ -131,7 +131,8 @@ void testProduct() {
   }
   pause_();
   if (ok) {
-    cout << "----Storage and loading test, the output of the Program and yours must match:" << endl;
+
+	  cout << "----Storage and loading test, the output of the Program and yours must match:" << endl;
     Product tprd;
     product.store(productFile);
     product.store(productFile);

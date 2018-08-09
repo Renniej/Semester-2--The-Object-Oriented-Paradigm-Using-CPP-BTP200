@@ -8,10 +8,13 @@
 namespace AMA {
 
 
-	class Perishable : Product {
+	class Perishable : public Product {
 
 		Date m_Expiry_Date;
 
+		
+
+	public:
 		Perishable();
 
 		std::fstream& store(std::fstream& file, bool newLine = true) const;

@@ -18,7 +18,7 @@
 
 
 
-		class Product : iProduct {
+		class Product : public iProduct {
 
 			char * m_PName;
 			char m_Type;

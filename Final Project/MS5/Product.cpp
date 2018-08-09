@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "Product.h"
 
 
@@ -71,13 +72,7 @@ namespace AMA {
 	}
 
 
-	Product::Product(char type) { //Sets object to empty state + sets the type of product
-		m_Type = type;
-		m_PName = nullptr;
-
 	
-
-	}
 
 	void Product::quantity(int amount) { //sets inventory on hand amount
 		m_Current_Inv = amount;
@@ -103,7 +98,21 @@ namespace AMA {
 		return taxed() ? cost() * quantity() : price() * quantity();
 
 	}
+	Product::Product(char type) { //Sets object to empty state + sets the type of product
+		
+		m_Type = type;
 
+		m_PName = nullptr;
+		m_SKU[0] = '\0';
+		m_Unit[0] = '\0';
+
+		m_Current_Inv = -1;
+		m_Needed_Inv = -1;
+		m_Taxable = false;
+		m_Price = -1;
+
+
+	}
 	Product::Product(const char * sku, const char * pname, const char* desc, int current_inv , bool taxable , double price, int needed_inv ) {
 		//Assumes all parameters are within valid constraints
 
@@ -165,13 +174,15 @@ namespace AMA {
 		
 		if (file.is_open()) {
 
+		
+
 			file << m_Type << ","
 
 				<< sku() << ","
 
 				<< unit() << ","
 
-				<< *m_PName << ","
+				<< m_PName << ","
 
 				<< m_Error.message() << ","
 
@@ -270,60 +281,66 @@ namespace AMA {
 	std::ostream & Product::write(std::ostream & os, bool linear) const
 	{
 	
+		if (isClear()) {
 
-		if (linear == true) {  //I dont think we meet width requirements, look back on guide
+			if (linear == true) {  //I dont think we meet width requirements, look back on guide
 
-					os.width(max_sku_length);
-					os << std::left << m_SKU ;
-					
-					os << '|';
-			
-					os.width(20);
-					os << std::left << m_PName;
-			
-					os << '|';
-			
-					os.width(7);
-		
-					os << std::right << ::setprecision(2) << std::fixed << cost() <<   '|';
-			
+				os.width(max_sku_length);
+				os << std::left << m_SKU;
 
-					os.width(4);
-			
-					os << quantity() << '|';
+				os << '|';
+
+				os.width(20);
+				os << std::left << m_PName;
+
+				os << '|';
+
+				os.width(7);
+
+				os << std::right << ::setprecision(2) << std::fixed << cost() << '|';
 
 
-					os.width(10);
-		
-					os << unit() << '|';
-			
-					os.width(4);
-					os << std::right;
-					os << qtyNeeded() << '|';
-				
-				
+				os.width(4);
+
+				os << quantity() << '|';
+
+
+				os.width(10);
+				os << std::left;
+				os << unit() << '|';
+
+				os.width(4);
+				os << std::right;
+				os << qtyNeeded() << '|';
+
+
 
 			}
+
+			else {
+
+
+				os << " Sku : " << m_SKU <<  endl;
+
+				os << " Name (no spaces) : " << m_PName << endl;
+
+				os << " Price : " << price() << endl;;
+
+				os << " Price after tax : " << cost() << endl;
+
+				os << " Quantity on hand : " << quantity() << " " << unit() << endl;
+				 
+				os << " Quantity needed : " << qtyNeeded() << endl;
+
+
+
+			}
+
+		}
 
 		else {
-
-
-					os << "Sku: " << m_SKU << '|' << endl;
-		
-					os << "Name: " << *m_PName << '|' << endl;
-			
-					os << "Price: " << taxed() ? cost() : price(); 
-					os << '|' << endl;
-			
-					os << "Quantity on hand: " << quantity() << '|' << endl;
-				
-					os << "Quantity needed: " << qtyNeeded() << '|' << endl;
-				
-				
-
-			}
-
-
+			os << m_Error.message();
+		}
 		
 		
 
@@ -331,7 +348,7 @@ namespace AMA {
 
 	}
 
-	std::istream& Product::read(std::istream & is)
+	std::istream& Product::read(std::istream & is) //Good
 	{
 
 
@@ -374,7 +391,7 @@ namespace AMA {
 					else {
 						is.setstate(std::ios::failbit);
 						ErrorFound = true;
-						m_Error.message("Only(Y)es or (N)o are acceptable");
+						m_Error.message("Only (Y)es or (N)o are acceptable"); //good
 					}
 					break;
 
@@ -466,7 +483,7 @@ namespace AMA {
 
 	std::ostream & operator<<(std::ostream & os, const iProduct & prod)
 	{
-		prod.write(os, true);
+		prod.write(os, true); //checl
 		return os;
 	}
 
