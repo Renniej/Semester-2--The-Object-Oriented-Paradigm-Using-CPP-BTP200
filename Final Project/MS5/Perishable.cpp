@@ -38,11 +38,16 @@ namespace AMA {
 	{
 		Product::write(os, linear);
 
-		if (linear == true) {
-			os << '|' << m_Expiry_Date;
-		}
-		else {
-			os << endl << "Expiry date: " << m_Expiry_Date;
+
+		if (!isEmpty() && isClear()) {
+
+
+			if (linear == true) {
+				os << m_Expiry_Date;
+			}
+			else {
+				os <<  " Expiry date: " << m_Expiry_Date;
+			}
 		}
 
 		return os;
@@ -57,7 +62,7 @@ namespace AMA {
 
 		if (is.fail() == false) {
 
-			cout << "Expiry date (YYYY / MM / DD): ";
+			cout << " Expiry date (YYYY/MM/DD): ";
 
 			cin >> tmp; //store istream to Date object
 
@@ -82,6 +87,7 @@ namespace AMA {
 						message("Invalid Day in Date Entry");
 						break;
 				}
+				is.setstate(std::ios::failbit);
 
 			}
 			else {

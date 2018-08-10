@@ -109,7 +109,7 @@ namespace AMA {
 		m_Current_Inv = -1;
 		m_Needed_Inv = -1;
 		m_Taxable = false;
-		m_Price = -1;
+		m_Price = -999;
 
 
 	}
@@ -176,30 +176,30 @@ namespace AMA {
 
 		
 
+
 			file << m_Type << ","
 
 				<< sku() << ","
 
-				<< unit() << ","
-
 				<< m_PName << ","
 
-				<< m_Error.message() << ","
+				<< unit() << ","
 
-				<< qtyNeeded() << ","
+				<< taxed() << ","
+
+				<< price() << ","
 
 				<< quantity() << ","
 
-				<< price() << ",";
+				<< qtyNeeded();
+
+				
 	
 
-						if (taxed()) {
-							file << "True";
-						}
-						else{
-							file << "False";
-						}
-			
+						
+							
+					
+					
 		}
 
 			
@@ -221,54 +221,57 @@ namespace AMA {
 
 		
 		string Name;
-		string Type;
+		//string Type;
 		string SKU;
 		string Unit;
 		string Cur_Inv;
 		string Needed_Inv;
 		string Price;
 		string Taxable;
-		string errMsg;
+		
 
 		if (file.is_open()) {
 
 		
-					std::getline(file, Type, ',');
+					//std::getline(file, Type, ',');
 
 					std::getline(file, SKU, ',');
+
+					std::getline(file, Name, ',');
 		
 					std::getline(file, Unit, ',');
 			
-					std::getline(file, Name, ',');
-				
+					std::getline(file, Taxable, ',');
 
-					std::getline(file, errMsg, ',');
-		
+					std::getline(file, Price, ',');
+
+					std::getline(file, Cur_Inv, ',');
+
 					std::getline(file, Needed_Inv, ',');
 		
-					std::getline(file, Cur_Inv, ',');
+					
 		
-					std::getline(file, Price, ',');
+					
 			
-					std::getline(file, Taxable, ',');
+					
 					
 
 					//Copy data to current Product oject
 
 					//.c_str() convers strings to const char * 's
 					name(Name.c_str());  //Sends String "Name" as Const Char * to Name operator
-					m_Type = Type[0];
+					//m_Type = Type[0];
 
 					strcpy(m_SKU, SKU.c_str());
 					strcpy(m_Unit, Unit.c_str());
 
-					m_Error.message(errMsg.c_str());
+				
 					m_Current_Inv = stoi(Cur_Inv);  //stoi converts string to int
 					m_Needed_Inv = stoi(Needed_Inv);
 
 					m_Price = stof(Price); //stof converts string to float(double)
 
-					m_Taxable = (Taxable == "True" ? true : false);
+					m_Taxable = stoi(Taxable);
 				
 
 			}
@@ -320,19 +323,27 @@ namespace AMA {
 			else {
 
 
-				os << " Sku : " << m_SKU <<  endl;
+				os << " Sku: " << m_SKU <<  endl;
 
-				os << " Name (no spaces) : " << m_PName << endl;
+				os << " Name (no spaces): " << m_PName << endl;
 
-				os << " Price : " << price() << endl;;
+				os << " Price: " << price() << endl;;
 
-				os << " Price after tax : " << cost() << endl;
+				os << " Price after tax: ";
+					
+				if (taxed()) {
+					os << cost() << endl;
+				}
+				else {
+					os << " N/A" << endl;
+				}
+					
 
-				os << " Quantity on hand : " << quantity() << " " << unit() << endl;
+				os << " Quantity on Hand: " << quantity() << " " << unit() << endl;
 				 
-				os << " Quantity needed : " << qtyNeeded() << endl;
-
-
+				os << " Quantity needed: " << qtyNeeded();
+				
+				cin.ignore();
 
 			}
 
@@ -364,23 +375,23 @@ namespace AMA {
 			switch (i) {
 
 				case 0:
-					cout << "Sku: ";
+					cout << " Sku: ";
 					is >> tmp.m_SKU;
 					break;
 
 				case 1:
-					cout << "Name (no spaces): ";
+					cout << " Name (no spaces): ";
 					is >> Name;
 					tmp.name(Name.c_str());
 					break;
 
 				case 2:
-					cout << "Unit: ";
+					cout << " Unit: ";
 					is >> tmp.m_Unit;
 					break;
 
 				case 3:
-					cout << "Taxed? (y/n): ";
+					cout << " Taxed? (y/n): ";
 					is >> Taxable;
 					if (Taxable == 'Y' || Taxable == 'y') {
 						tmp.m_Taxable = true;
@@ -396,10 +407,10 @@ namespace AMA {
 					break;
 
 				case 4:
-					cout << "Price: ";
+					cout << " Price: ";
 					is >> tmp.m_Price;
 
-					if (tmp.m_Price < 0) {
+					if (tmp.m_Price < 0 || is.fail()) {
 						is.setstate(std::ios::failbit);
 						ErrorFound = true;
 						m_Error.message("Invalid Price Entry");
@@ -408,10 +419,10 @@ namespace AMA {
 					break;
 
 				case 5:
-					cout << "Quantity on hand: ";
+					cout << " Quantity on hand: ";
 					is >> tmp.m_Current_Inv;
 
-					if (tmp.m_Current_Inv < 0) {
+					if (tmp.m_Current_Inv < 0 || is.fail()) {
 						is.setstate(std::ios::failbit);
 						ErrorFound = true;
 						m_Error.message("Invalid Quantity Entry");
@@ -420,16 +431,22 @@ namespace AMA {
 					break;
 
 				case 6:
-					cout << "Quantity needed: ";
+					cout << " Quantity needed: ";
 					is >> tmp.m_Needed_Inv;
 					
-					if (tmp.m_Needed_Inv < 0) {
+					if (tmp.m_Needed_Inv < 0 || is.fail()) {
 						is.setstate(std::ios::failbit);
 						ErrorFound = true;
 						m_Error.message("Invalid Quantity Needed Entry");
 					}
 
+					
 					break;
+				
+	
+
+
+
 
 
 			}

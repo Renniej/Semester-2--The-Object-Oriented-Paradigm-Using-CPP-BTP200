@@ -1,0 +1,21 @@
+﻿1>------ Build started: Project: MS5, Configuration: Debug Win32 ------
+1>Perishable.cpp
+1>Product.cpp
+1>l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\final project\ms5\product.cpp(31): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+1>l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\final project\ms5\product.cpp(121): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+1>l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\final project\ms5\product.cpp(124): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+1>l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\final project\ms5\product.cpp(156): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+1>l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\final project\ms5\product.cpp(157): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+1>l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\final project\ms5\product.cpp(265): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+1>l:\documents\github\semester-2--the-object-oriented-paradigm-using-cpp-btp200\final project\ms5\product.cpp(266): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>d:\windows kits\10\include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+1>Generating Code...
+1>MS5.vcxproj -> L:\Documents\GitHub\Semester-2--The-Object-Oriented-Paradigm-Using-CPP-BTP200\Final Project\MS5\Debug\MS5.exe
+1>Done building project "MS5.vcxproj".
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
